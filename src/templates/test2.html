@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class='container'>
+
+	<div class='row'>
+	<br>
+		
+		<h4> List of all primary groups </h4>
+		Total groups: <z style="color:#85BC22"> {{group_count}} </z> <br>
+		Total contacts across all groups:<z style="color:#85BC22"> {{total_contacts}} </z>
+		<hr/>		
+		<div class='col-sm-5'> 
+
+		 		
+		 		<table id="jstable" class="display">
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center">pk</TH>
+			          <TH style="text-align:center">First name</TH>
+			          <TH style="text-align:center">Last name</TH>
+			          <TH style="text-align:center">City</TH>
+			          <TH style="text-align:center">Primary Group</TH>
+			        </TR>
+			      </THEAD> 
+			      <TBODY>
+			        {% for obj in table %}
+			        <TR>
+			          <TD class="vert-align">
+			          {% if obj.pk <= 12 %}<b style="color:#00b200">{{obj.pk}} <br> {% endif %}
+			          {% if obj.pk > 12 %}<b style="color:#cc0000">{{obj.pk}} <br> {% endif %}
+			          </b></TD>
+			          <TD class="vert-align" width="30">{{ obj.first_name }}</TD>
+			          <TD class="vert-align" width="30">{{ obj.last_name }}</TD>
+			          <TD class="vert-align" width="30">{{ obj.city }}</TD>
+			          <TD class="vert-align"><a href=''>
+			          {{obj.primary_group}} </a></TD>
+			          
+			        {% endfor %}
+			        </TR>
+			      </TBODY>
+			    </TABLE>
+				<hr/>
+		</div>
+		
+	</div> 
+	<a href='{% url "user_homepage" %}' class="btn btn-default" role="button">Go back home</a>
+	</div>
+	<br>
+
+{% endblock %}
+
+
+{% block scr %}
+ 
+   <script> 
+	    $(document).ready( function () {
+	        $("#jstable").DataTable();
+	    } );
+    </script>   
+
+
+
+{% endblock scr %}

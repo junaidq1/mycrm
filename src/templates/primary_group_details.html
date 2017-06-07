@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class='container'>
+
+
+	<div class='row'>
+		
+			<br>
+			<h5> Group deep-dive </h5>
+			<hr/>		
+			<h3>Group name: <em style="color:#85BC22"><a href='{% url "admin:p_groups_group_change" grp.id %}'> {{grp}} </a></em></h3>
+			
+			<p><b>Group description:</b><z style="color:#A9A9A9"> {{grp.group_description}} </z><br></p>
+			<p><b>Importance Rating:</b><z style="color:#A9A9A9"> {{grp.group_imp_rating}} </z><br></p>
+			<p><b>Group Strategy:</b><z style="color:#A9A9A9"> {{grp.group_strategy}} </z><br></p>
+			<p><b>Target Contact Cycle:</b><z style="color:#A9A9A9"> Every {{grp.target_contact_cycle_weeks}} weeks </z><br></p>
+	 		
+		<em style="color:#D3D3D3" >Sorted by variance to target</em>
+
+		</div>	
+	<div class='row'>
+	
+		
+		<div class='col-sm-11'> 
+		 	
+		 
+		 		<table id="jstable" class="display">
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center" width="30">#</TH>
+			          <TH style="text-align:left" width="70">First name</TH>
+			          <TH style="text-align:left" width="70">Last name</TH>
+			          <TH style="text-align:center" width="20">City</TH>
+			          <TH style="text-align:center" width="20">Star.</TH>
+			          <TH style="text-align:center">Pros.</TH>
+			          <TH style="text-align:center" width="60">Last Cont.</TH>
+			          <TH style="text-align:center" width="70">Days sin. cont.</TH>
+			          <TH style="text-align:center" width="60">Target n. contact</TH>
+			          <TH style="text-align:center" width="60">Total int. (Last 1yr)</TH>
+			          <TH style="text-align:center">Imp Rating</TH>
+			          <TH style="text-align:center">Targ Wks</TH>
+			          <TH style="text-align:center">Act Wks</TH>
+			          <TH style="text-align:center">Var %</TH>
+			          <TH style="text-align:center" width="60">Days to n. contact</TH>
+			        </TR>
+			      </THEAD> 
+			      <TBODY>
+			        {% for obj in group_details %}
+			        <TR>
+			          <TD class="vert-align">{{ forloop.counter }}</TD>        
+			          <TD class="vert-align">  <a href='{% url "cont_detail" pk=obj.id %}'>
+			          {{obj.first_name}}</a></TD>
+			          <TD class="vert-align"><a href='{% url "cont_detail" pk=obj.id %}'>
+			          {{obj.last_name}}</a></TD>
+			          <TD class="vert-hor-align">{{obj.city}}</TD>
+			          <TD class="vert-hor-align"><a href='{% url "edit_master_starred" pk=obj.id %}'> {% if obj.starred is True %}<span class="glyphicon glyphicon-star" aria-hidden="true"></span> {% endif %} </a></TD>
+			          <TD class="vert-hor-align"><a href='{% url "edit_master_prospect" pk=obj.id %}'>{% if obj.prospect is True %} Y {% endif %} </a></TD>
+			          <TD class="vert-hor-align">{{obj.last_contact}}</TD>
+			          <TD class="vert-hor-align">{{obj.days_since_last_contact|floatformat:0}}</TD>
+			          <TD class="vert-hor-align"><a href='{% url "edit_master_next_date" obj.id %}'>{{obj.target_next_contact_date|date:"M d"}}</a></TD>			        
+			          <TD class="vert-hor-align">{{obj.tot_meets}}</TD>
+			          <TD class="vert-hor-align">{{obj.imp_rating}}</TD>
+			          <TD class="vert-hor-align">{{obj.f_target_cycle}}</TD>
+			          <TD class="vert-hor-align">{{obj.avg_weeks}}</TD>
+			          <TD class="vert-hor-align">
+			          {% if obj.delta_perc != None %}
+			        {% if obj.delta_perc <= 0 %}<b style="color:#00b200">{{obj.delta_perc}}% <br> {% endif %}
+			        {% if obj.delta_perc > 0 %}<b style="color:#cc0000">{{obj.delta_perc}}% <br> {% endif %}
+			          {% endif %}</b></TD>
+			          <TD class="vert-hor-align">
+			          {% if obj.days_to_next_contact < 0 %} <b style="color:#800000">PAST <br> {% endif %}
+			          {{obj.days_to_next_contact|floatformat:0}} </b></TD>
+			          {% endfor %}
+			        </TR>
+			        
+			      </TBODY>
+			    </TABLE>
+				<hr/>
+		</div>
+		
+	</div>
+	<br>
+		<a href='{% url "user_homepage" %}' class="btn btn-default" role="button">Go back home</a>
+	 	<a href='{% url "prim_groups" %}' class="btn btn-primary" role="button">
+	 	Group Summary</a>	
+
+	</div>
+		
+	</div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block scr %}
+ 
+   <script> 
+	    $(document).ready( function () {
+	        $("#jstable").DataTable({
+			    paging: false,
+    			scrollY: 570
+			});
+	    } );
+    </script>   
+
+{% endblock scr %}

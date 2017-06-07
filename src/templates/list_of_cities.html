@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+<!-- DOCTYPE html -->
+
+
+{% block content %}
+
+<br>
+<br>
+<div class='container'>
+
+<div class='row'>
+
+<div class='col-sm-8'>
+<h3>Contacts by city</h3>
+
+<br>
+<hr/>
+
+<emp style="color:#A9A9A9">Total cities represented: {{city_count}}  </emp> 
+<hr/><br>
+
+{% for obj in list_of_cities %}
+	<ul>{{forloop.counter}}.
+	<a href='{% url "city_detail2" city=obj.city  %}'>
+		<b style="color:#85BC22">{{obj.city}}  </b> |
+	</a>
+	{{obj.num_by_city}} contacts
+	
+	
+	</ul>
+	<hr/>
+{% endfor %}
+
+
+<br>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
+

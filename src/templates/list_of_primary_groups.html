@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class='container'>
+
+	<div class='row'>
+	<br>
+		
+		<h4> List of all primary groups </h4>
+		Total groups: <z style="color:#85BC22"> {{group_count}} </z> <br>
+		Total contacts across all groups:<z style="color:#85BC22"> {{total_contacts}} </z>
+		<hr/>		
+		<div class='col-sm-9'> 
+
+		 		
+		 		<table id="jstable" class="display">
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center">#</TH>
+			          <TH style="text-align:left" width="270">Group name</TH>
+			          <TH style="text-align:center"># members</TH>
+			          <TH style="text-align:center">Imp Rating</TH>
+			          <TH style="text-align:center" width="120">Target meet cycle (wks)</TH>
+			          <TH style="text-align:center" width="120">F Target meet cycle (wks)</TH>
+			          <TH style="text-align:center" >Avg. Actual (wks)</TH>
+			          <TH style="text-align:center" >Var. %</TH>
+			          <TH style="text-align:center">Edit</TH>
+			        </TR>
+			      </THEAD> 
+			      <TBODY>
+			        {% for obj in group_list %}
+			        <TR>
+			          <TD class="vert-align" width="30">{{ forloop.counter }}</TD>
+			          <TD class="vert-align"><a href='{% url "prim_group_detail" pk=obj.group_id %}'>
+			          {{obj.group_name}} </a></TD>
+			          <TD class="vert-hor-align">{{obj.number_of_members}}</TD>
+			          <TD class="vert-hor-align">{{obj.group_imp_rating }}</TD>
+			          <TD class="vert-hor-align">{{obj.target_contact_cycle_weeks}}</TD>
+			          <TD class="vert-hor-align">{% if obj.delta_perc != None %} {{obj.avg_target_weeks}}   {% endif %}</TD>
+			          <TD class="vert-hor-align">{% if obj.delta_perc != None %} {{obj.avg_actuals_weeks}}  {% endif %}</TD>
+			          <TD class="vert-hor-align">
+			         {% if obj.delta_perc != None %}
+			         {% if obj.delta_perc <= 0 %}<b style="color:#00b200">{{obj.delta_perc}}% <br> {% endif %}
+			         {% if obj.delta_perc > 0 %}<b style="color:#cc0000">{{obj.delta_perc}}% <br> {% endif %}
+			          {% endif %}</b></TD>
+			          <TD class="vert-hor-align"><a href='{% url "admin:p_groups_group_change" obj.group_id %}'>edit</a></TD>
+			          
+			        {% endfor %}
+			        </TR>
+			        
+			      </TBODY>
+			    </TABLE>
+				<hr/>
+		</div>
+		
+	</div>
+	<a href='{% url "user_homepage" %}' class="btn btn-default" role="button">Go back home</a>
+	</div>
+		
+</div>
+
+{% endblock %}
+
+
+
+
+{% block scr %}
+ 
+   <script> 
+	    $(document).ready( function () {
+	        $("#jstable").DataTable({
+			    paging: false
+			});
+	    } );
+    </script>   
+
+
+
+{% endblock scr %}

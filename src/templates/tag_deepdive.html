@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class='container'>
+
+
+	<div class='row'>
+		<br>
+			
+			<h4>Tag name: <em style="color:#85BC22"><a href='{% url "admin:tags_tag_change" tg.id %}'>{{tg}} </a></em></h4>
+			
+		</div>	
+	<div class='row'>
+	<br>
+		<em style="color:#D3D3D3">Sorted by imp. rating and days to next contact</em>
+		<div class='col-sm-12'> 
+		 	
+		 
+		 		<table id="jstable" class="display">
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center" width="30">#</TH>
+			          <TH style="text-align:left" width="70">Prim Group</TH>
+			          <TH style="text-align:left" width="70">First name</TH>
+			          <TH style="text-align:left" width="70">Last name</TH>
+					  <TH style="text-align:left" width="70">Imp. Rating</TH>
+			          <TH style="text-align:center">City</TH>
+					  <TH style="text-align:center">Starred</TH>
+			          <TH style="text-align:center">Prospect</TH>
+			          <TH style="text-align:center">Last Contact</TH>
+			          <TH style="text-align:center" >Days since l. contact</TH>
+			          <TH style="text-align:center">Target next contact</TH>
+			          <TH style="text-align:center">Days to next contact</TH>
+			          <TH style="text-align:center">Total interactions (1yr)</TH>
+			        </TR>
+			      </THEAD> 
+			      <TBODY>
+			        {% for obj in tag_details %}
+			        <TR>
+			          <TD class="vert-align">{{ forloop.counter }}</TD>
+			          <TD class="vert-align">{{obj.group_name}}</TD>
+				      <TD class="vert-align"><a href='{% url "cont_detail" pk=obj.master_id %}'>      
+				      {{obj.first_name}} </a></TD>
+				      <TD class="vert-align"><a href='{% url "cont_detail" pk=obj.master_id %}'>
+				      {{obj.last_name}}</a></TD> 				      
+				      <TD class="vert-align">{{obj.imp_rating}}</TD>
+				      <TD class="vert-hor-align">{{obj.city}}</TD>
+			          <TD class="vert-hor-align"><a href='{% url "edit_master_starred" pk=obj.master_id %}'> {% if obj.starred is True %}<span class="glyphicon glyphicon-star" aria-hidden="true"></span> {% endif %} </a>
+			          </TD>
+			          <TD class="vert-hor-align"><a href='{% url "edit_master_prospect" pk=obj.master_id %}'>{% if obj.prospect is True %} Y {% endif %}</a></TD>
+			          <TD class="vert-hor-align">{{obj.last_contact}}</TD>
+			          <TD class="vert-hor-align">{{obj.days_since_last_contact|floatformat:0}}</TD>
+			          <TD class="vert-hor-align"><a href='{% url "edit_master_next_date" obj.master_id %}'>{{obj.target_next_contact_date|date:"M d"}}</a></TD>
+			          <TD class="vert-hor-align">
+			          {% if obj.days_to_next_contact <= 0 %} <b style="color:#800000">PAST <br> {% endif %}
+			          {{obj.days_to_next_contact|floatformat:0}} </b></TD>
+			          <TD class="vert-hor-align">{{obj.total_num_of_contacts}}</TD>
+			          
+			        {% endfor %}
+			        </TR>
+			        
+			      </TBODY>
+			    </TABLE>
+				<hr/>
+		</div>
+			
+	</div>
+	<a href='{% url "tag_list" %}' class="btn btn-primary btn-lg" role="button">Back to tags</a>
+	<a href='{% url "user_homepage" %}' class="btn btn-default btn-lg" role="button">Go back home</a>
+	<br>
+	<br>
+	</div>
+		
+</div>
+</div>
+
+{% endblock %}
+
+
+
+{% block scr %}
+ 
+   <script> 
+	    $(document).ready( function () {
+	        $("#jstable").DataTable({
+			    paging: false,
+    			scrollY: 585
+			});
+	    } );
+    </script>   
+
+{% endblock scr %}

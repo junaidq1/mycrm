@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+ 
+  
+		{% include 'forecast_boilerplate1.html' %} 
+
+		 <ul class="nav nav-tabs">
+			<li role="presentation" ><a href='{% url "cal_view_pastdue" %}'>Past <br> Due ({{past_due_total}})</a></li>
+			<li role="presentation" class="active"><a href='{% url "cal_view_today" %}'>Today ({{list_today_total}}) <br>{{date_today|date:"l"}} </a></li>
+			<li role="presentation"><a href='{% url "cal_view_todayplus1" %}'>Tomorrow ({{list_today_plus1_total}})<br> {{date_today_plus1|date:"l"}}</a></li>
+			<li role="presentation"><a href='{% url "cal_view_todayplus2" %}'>Day after ({{list_today_plus2_total}})<br> {{date_today_plus2|date:"l"}}</a></li>
+			<li role="presentation"><a href='{% url "cal_beyond_that" %}'>Beyond <br> ({{future_total}}) </a></li>
+		</ul>
+		
+		{% include 'forecast_boilerplate2.html' %}  
+		 
+
+
+
+{% endblock %}

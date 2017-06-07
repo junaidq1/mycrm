@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% url 'admin:jsi18n' as jsi18nurl %} <script type="text/javascript" src="{{ jsi18nurl }}"></script> 
+
+
+{% block title %}
+	Contact detail
+{% endblock %}
+
+
+ 
+{% block content %}
+
+
+
+ 
+<!-- need to have POST to indicate its not a default get method and action says what url to send it to -->
+<!-- <form method='POST' action=''> {% csrf_token %} -->
+<div class='container'>
+
+	<div class='row'>
+
+<div class='col-sm-8'>
+
+<h3> Edit master </h3>
+
+<br>
+
+<h3>Details for:  <z style="color:#85BC22"> {{mas}} </z></h3>
+<br>
+
+
+	<form method='POST' action=''> {% csrf_token %}
+
+	{{form|crispy}}
+	<input class='btn btn-primary' type='submit' value='Update'/>
+	</form>
+</div>
+
+</div>
+</div>
+
+{% endblock %}

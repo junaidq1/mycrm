@@ -1,0 +1,53 @@
+<br>
+		 		<table class="table">
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center" width="30">#</TH>
+			          <TH style="text-align:left" width="70">First name</TH>
+			          <TH style="text-align:left" width="70">Last name</TH>
+			          <TH style="text-align:left" width="90">Primary group</TH>
+			          <TH style="text-align:center" width="80"><z style="color:#800000">Target Contact Date</z></TH>
+			          <TH style="text-align:center">Imp't Rating</TH>
+			          <TH style="text-align:center" width="85">Last Contact</TH>
+			          <TH style="text-align:center" width="20">Time since l. cont.</TH>
+			          <TH style="text-align:center">Total interactions (1yr)</TH>
+			        </TR>
+			      </THEAD> 
+			      <TBODY>
+			        {% for obj in filtered_list_details %}
+			        <TR>
+			        
+			          <TD class="vert-align">{{ forloop.counter }}</TD>
+			        
+			          <TD class="vert-align">  <a href='{% url "cont_detail" pk=obj.master_id %}'>
+			          {{obj.first_name}}</a></TD>
+			          <TD class="vert-align"><a href='{% url "cont_detail" pk=obj.master_id %}'>{{obj.last_name}}</a></TD>
+			        
+			          <TD class="vert-align">{{obj.group_name}}</TD>
+			          <TD class="vert-hor-align"><z style="color:#800000"><a href='{% url "edit_master_next_date" obj.master_id %}'>{{obj.next_contact_date|date:"M d"}}</a><br>
+			          {% if obj.days_to_next_contact < 0 %} <b> ({% widthratio obj.days_to_next_contact 1 -1 %})  {% endif %} </b> </z></TD>  
+			          <TD class="vert-hor-align">{{obj.imp_rating}}</TD>
+			          <TD class="vert-hor-align">{{obj.last_contact|date:"M d 'y"}}</TD>
+			          <!-- <TD class="vert-hor-align">{{obj.days_since_last_contact|floatformat:0}}</TD> -->
+			          <TD class="vert-hor-align">{{obj.last_contact|timesince}}</TD>
+			          <TD class="vert-hor-align">{{obj.total_num_of_contacts}}</TD>
+			          
+			           
+			        {% endfor %}
+			        </TR>
+			        
+			      </TBODY>
+			    </TABLE>
+				<hr/>
+		</div>
+		
+	</div>
+	<br>
+		
+	 	
+
+	</div>
+		
+	</div>
+
+</div>

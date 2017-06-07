@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+
+<!-- DOCTYPE html -->
+
+
+{% block content %}
+
+<br>
+<br>
+<div class='container'>
+
+	<div class='row'>
+<div class='col-sm-8'>
+<h3>Tags available</h3>
+
+
+<!-- need to have POST to indicate its not a default get method and action says what url to send it to -->
+<!-- <form method='POST' action=''> {% csrf_token %} -->
+
+
+<br>
+
+
+
+
+<hr/>
+
+
+{% for obj in tag_set %}
+	<ul>{{forloop.counter}}.
+	<a href='{% url "tag_detail" pk=obj.id %}'>
+		<b style="color:#85BC22">{{obj.tag_name}} </b> |
+	</a>
+	{{obj.tag_description}} -
+	{{obj.num_masters}}
+	
+	
+	</ul>
+	<hr/>
+{% endfor %}
+
+
+<br>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
+

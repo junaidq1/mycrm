@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if messages %}
+<div class='row'>
+    
+    <ul class="messages">
+    {% for msg in messages %}       
+    
+      <div class="alert alert-{{msg.level_tag}}" role="alert">
+      {{msg.message}}
+      </div>
+    
+    {% endfor %}
+    </ul>
+</div>
+
+{% endif %}
+
+
+<div class="jumbotron">
+      <div class="container">
+        <!-- <h1>Welcome Deloitter</h1> -->
+        <div class="row">
+          <div class="col-sm-3"> 
+            <img src="{% static 'img/gdp_logo.png' %}" class="img-responsive"/>
+          </div>
+        </div>
+        <p><h3>Welcome to greendotpeers.com, the definitive location to find and share feedback anonymously on Ms, SMs and PPDs at Deloitte Consulting</h3></p>
+        
+        <p>Let's face it, consultants work pretty hard. Liking the senior folks you work with is essential to enduring those long hours you put in on the road. Use this portal to find information on potential teams prior to accepting that staffing request and to give others a glimpse of what it was like to work with the folks you worked with. </p>
+        <p>Together let’s strengthen the culture of our firm by adding transparency to it and by ensuring that the process of team diligence prior to staffing is no longer a one-way exercise!</p>
+
+        <p><a class="btn btn-primary btn-lg" href='{% url "about_us" %}' role="button">Learn more &raquo;</a></p>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Announcing our beta launch</h3>
+          <p>greendotpeers.com has officially launched in Beta in August 2016</p>
+
+          <p>As part of the launch promotion, we will provide advanced voting privileges to the members who provide 10 completed reviews</p>
+          
+          <p>We are currently providing a community for S&O practitioners only, however, that will
+          soon be expanded to include other service areas as well</p>
+          
+        </div>
+  
+        <div class="col-md-2">
+  
+        </div>
+        <div class="col-md-3">
+          <h3>Sign-up and access the data for free!</h3>
+          <br>
+          <br>
+          <p><a class="btn btn-success btn-block btn-lg" href='{% url "ver_question" %}' role="button">Sign-up Now &raquo;</a></p>
+       </div>
+      
+      </div>
+
+      <hr>
+      
+      <div class="row">
+        <div class="col-md-4 col-sm-offset-9">
+        
+        <!-- {{request.build_absolute_uri}} -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}">
+        Facebook | 
+        </a>
+        <a href="https://twitter.com/home?status=%20{{request.build_absolute_uri}}">
+        Twitter |
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{request.build_absolute_uri}}&title=greendotpeers.com&source={{request.build_absolute_uri}}">
+        Linkedin
+        </a>
+
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; 2016 Inc.</p>
+      </footer>
+
+    </div> <!-- /container -->
+    
+    {% endblock %}

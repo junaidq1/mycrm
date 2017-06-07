@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+	Add contact
+{% endblock %}
+
+
+ 
+{% block content %}
+
+
+
+ 
+<!-- need to have POST to indicate its not a default get method and action says what url to send it to -->
+<!-- <form method='POST' action=''> {% csrf_token %} -->
+<div class='container'>
+
+	<div class='row'>
+
+<div class='col-sm-8'>
+
+<br>
+
+<h3> Edit touchpoint with <z style="color:#85BC22"> {{ mas }} </z> on:  {{cont.contact_date}}</h3>
+
+
+<br>
+
+<br>
+	<form method='POST' action=''> {% csrf_token %}
+
+	{{form|crispy}}
+	<input class='btn btn-primary btn-lg' type='submit' value='Update'/>
+	</form>
+<br>
+<br>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

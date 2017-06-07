@@ -1,0 +1,44 @@
+
+h5 {
+  color: #777777;
+}
+
+h1{
+    margin: 0;
+}
+ 
+
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
+}
+
+.table tbody>tr>td.vert-hor-align{
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+.vertical-line{
+  width: 1px; /* Line width */
+  background-color: #e4e4e4; /* Line color */
+  height: 100%; /* Override in-line if you want specific height. */
+  float: left; /* Causes the line to float to left of content. 
+    You can instead use position:absolute or display:inline-block
+    if this fits better with your design */
+}
+
+.cent-text{
+	text-align: center;
+}
+
+
+
+.navbar {
+    margin-bottom:0; /*add this*/
+}
+.jumbotron {
+      margin-bottom:0;
+      margin-top:0;
+    }
+
+

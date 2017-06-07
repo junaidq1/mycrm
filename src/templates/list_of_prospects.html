@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+ <div class='container'>
+
+	<div class='row'>
+			<br>
+			<h3 style="color:#85BC22"> Folks who are categorized as 'Prospects' </h3>
+			<hr/>					
+	</div>	
+	<div class='row'>	
+		<div class='col-sm-11 col col-offset-1'>
+			<h5>Date today:<z style="color:#85BC22">  &nbsp {{date_today|date:"D M d, 'y"}} </z></h5>
+			<h5>Total # of prospects:<z style="color:#85BC22">  &nbsp {{number_prospects}} </z></h5>
+		 	
+		 	<em style="color:#D3D3D3" >Sorted by importance and days to next contact</em>
+		 	
+		 		<table class="table">
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center" width="30">#</TH>
+			          <TH style="text-align:left" width="130">Primary group</TH>
+			          <TH style="text-align:left" width="70">First name</TH>
+			          <TH style="text-align:left" width="70">Last name</TH>
+			          <TH style="text-align:center" width="50">Imp't Rating</TH>
+			          <TH style="text-align:center">Prospect?</TH>
+			          <TH style="text-align:center" width="75">Last Contact</TH>
+			          <TH style="text-align:center" width="20">Days since l. contact</TH>
+			          <TH style="text-align:center"><z style="color:#800000">Target Contact Date</z></TH>
+			          <TH style="text-align:center" width="80">Days to Next Cont.</TH>
+			          <TH style="text-align:center">Total interactions (1yr)</TH>
+			          <TH style="text-align:center" width="280">Contact notes</TH>
+			        </TR>
+			      </THEAD> 
+			      <TBODY>
+
+			        {% for obj in filtered_list_details %}	
+			        
+			        <!-- {{flist2.obj.imp_rating}} -->
+			        <!-- {% if flist2.obj.imp_rating != obj.imp_rating %}   Hi     {% endif %} -->
+			        <!-- {% ifnotequal flist2.obj.imp_rating obj1.imp_rating %} Hi       {% endifnotequal %} -->
+			        <!-- for custom border> style="border-bottom-style: solid; border-bottom: thick dotted #ff0000; " -->
+			        <TR>
+			        
+			          <TD class="vert-align">{{ forloop.counter }}</TD>
+			          <TD class="vert-hor-align" >{{obj.group_name}}</TD>
+			          <TD class="vert-align">  <a href='{% url "cont_detail" pk=obj.master_id %}'>
+			          {{obj.first_name}} </a></TD>
+			          <TD class="vert-align"><a href='{% url "cont_detail" pk=obj.master_id %}'>{{obj.last_name}}</a></TD>
+			   
+			          <TD class="vert-hor-align" >{{obj.imp_rating}}</TD>
+			          <TD class="vert-hor-align"><a href='{% url "edit_master_prospect" pk=obj.master_id %}'> Y </span></a></TD> 
+			          <TD class="vert-hor-align">{{obj.last_contact}}</TD>
+			          <TD class="vert-hor-align">{{obj.days_since_last_contact|floatformat:0}}</TD>
+			          <TD class="vert-hor-align"><z style="color:#800000"><a href='{% url "edit_master_next_date" obj.master_id %}'>{{obj.next_contact_date|date:"M d"}}</a></z></TD>
+			          <TD class="vert-hor-align">
+			          {% if obj.days_to_next_contact <= 0 %} <b style="color:#800000">PAST <br> {% endif %}
+			          {{obj.days_to_next_contact|floatformat:0}} </b></TD>
+			          
+			          <TD class="vert-hor-align">{{obj.total_num_of_contacts}}</TD>
+			          <TD class="vert-align">{{obj.notes|truncatechars:65}}..</TD>
+			          
+			        
+			        {% endfor %}
+			        </TR>
+			        
+			      </TBODY>
+			    </TABLE>
+				<hr/>
+		</div>
+		</div>
+		<br>
+		<a href='{% url "user_homepage" %}' class="btn btn-default btn-lg" role="button">Go back home</a>
+		
+		<br>
+		<br>
+	
+	<br>
+		
+	 	
+
+	</div>
+		
+	</div>
+
+</div>
+
+		 
+
+
+
+{% endblock %} 
+		 

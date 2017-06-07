@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Contact detail
+{% endblock %}
+
+
+{% block content %} 
+
+ <div class='container'>
+
+ 	<div class='row'>
+		<div class='col-sm-6'> 
+			<br>
+	 		<h3> Contact name: <b style="color:#85BC22"> {{name.first_name}} {{name.last_name}} </b></h3>
+	 	
+	 		<p><b>Primary Group:</b><z style="color:#85BC22"><a href='{% url "prim_group_detail" pk=pg.id %}'> {{pg.group_name}} </a></z><br></p>
+	 		<p><b>Tags:</b><z style="color:#85BC22"> 
+	 			 {% for i in tags_added %}
+	 			 	<a href='{% url "tag_detail" pk=i.id %}'>
+	 			   {{i}} ,
+	 			   	</a>
+	 			{% endfor %}
+	 		</z><br></p>
+
+	 		<br><b> Location: </b><z style="color:#A9A9A9">  {{name.city}}</z><br>
+	 		<b>Workplace | Position:</b>	<z style="color:#A9A9A9"> {{name.workplace}} | {{name.title}}</z><br>
+	 		<b>Individual / Group importance: </b><z style="color:#85BC22">
+	 		{% if name.ind_imp_rating != None %}  {{name.ind_imp_rating}} (individual) 
+	 		{% else %}  {{pg.group_imp_rating}} (group) {% endif %}
+	 		 </z><br>
+	 		<b>Most recent touchpoint:</b><z style="color:#85BC22"> {{most_recently_met|date:"D - M d Y"}} | {{most_recently_met|timesince}} ago  ({{most_recent_met_medium}})</z><br>
+	 		<!-- <b>Most recent touchpoint medium:</b><z style="color:#85BC22"> {{most_recent_met_medium}}</z><br>
+ -->
+		{% if most_recent_met_medium != "in_person" %}	 		
+	 		<b>Most recent meet (in-pers):</b><z style="color:#85BC22"> {{most_recently_met_inperson|date:"D - M d Y"}} | {{most_recently_met_inperson|timesince}} ago
+		{% endif %}	 		
+
+	 		</z><br>
+	 		<b>First met:</b><z style="color:#85BC22"> {{name.first_met|date:"M d Y"}} | {{name.first_met|timesince}} ago </z><br>
+			<br>
+			<b>Total meetings (last 12 m):</b><z style="color:#85BC22"> {{last_year_touchpoints_count}} </z><br>
+			<b>Total meetings (all-time):</b><z style="color:#85BC22"> {{total_touchpoints_count}} </z><br>
+			
+			<b>Avg. time b/w meetings LTM:</b><z style="color:#85BC22"> {{avg_time_between_meets_last_yr|floatformat:0}} days |
+			{{avg_time_between_meets_last_yr_weeks|floatformat}} weeks</z><br> 
+			<b>Target contact time individual / group: </b><z style="color:#85BC22"> 
+			{% if name.target_contact_cycle_individual != None %}  {{name.target_contact_cycle_individual}} weeks (individual) 
+	 		{% else %}  {{pg.target_contact_cycle_weeks}} weeks (p group) {% endif %}</z><br> 
+
+			<br>
+			<b>Next Target Contact date:</b><z style="color:#800000"> 
+			{% if days_to_next_meeting <= 0 %} <b>PAST DUE - </b> {% endif %}
+			<a href='{% url "edit_master_next_date" pk=name.id %}'>{{name.next_contact_date|date:"D, M d"}}</a> | {{days_to_next_meeting}} days</z><br>
+
+ 		</div>
+ 		<div class='col-sm-6'> 
+ 			<br>
+ 			<br>
+ 			<br>
+ 			<b>Contact Notes:</b>	<z style="color:#A9A9A9"> {{name.notes}}</z><br>
+ 			
+ 		</div>
+ 		<hr/>
+	</div>
+
+	<div class='row'>
+
+		<div class='col-sm-6'>
+			
+			
+		<br>
+	 	<a href='{% url "user_homepage" %}' class="btn btn-default" role="button">Home</a>
+	 	<a href='{% url "edit_master" pk=name.id %}' class="btn btn-primary" role="button">
+	 	Edit Contact</a>
+	 	<a href='{% url "add_touchpoint" pk=name.id %}' class="btn btn-primary" role="button">
+	 	Add Touchpoint</a>
+		
+		</div>
+
+	</div>
+
+ 		<hr/>
+ 		
+
+
+	<div class='row'>
+		<div class='col-sm-7 col-offset-1'>
+		
+
+		<h4 style="color:#A9A9A9;"> Detailed meet history for {{name.full_name}}</h4>
+		
+		<table class="table">	
+				<!-- <div class='col-sm-10 col-sm-offset-2'> -->
+			    <!-- <TABLE BORDER="1"> -->
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center" width="30">#</TH>
+			          <TH style="text-align:left" width="20"> Yr</TH>
+			          <TH style="text-align:center" width="20"> M</TH>
+			          <TH style="text-align:left" width="75">Date</TH>
+			          
+			          <TH style="text-align:center" width="30"> Days ago</TH>
+			          <TH style="text-align:left" width="100">Contact Type</TH>
+			          <TH style="text-align:left">Contact Notes</TH>
+			        </TR>
+			      </THEAD>
+			      <TBODY>
+			        {% for obj in last_year_touchpoints %}
+			        <TR>
+			          <TD class="vert-hor-align">{{forloop.counter }})</TD>
+			          <TD class="vert-hor-align">{{obj.contact_date|date:"'y"}}</TD>  
+			          <TD class="vert-hor-align">{{obj.contact_date|date:"M"}} </TD>  
+			          <TD class="vert-align">{{obj.contact_date|date:"d - D"}} </TD>  
+			          
+			          <TD class="vert-hor-align">{{obj.contact_date|timesince}} </TD>  
+			          <TD class="vert-align">
+			          <a href='{% url "edit_touchpoint" pk=obj.contact_name_id pk2=obj.id %}'> {{obj.contact_type}}  </a> </TD>
+			          <TD class="vert-align">{{obj.contact_notes}}</TD>  
+			          
+			        {% endfor %}
+			        </TR>
+			        
+			      </TBODY>
+			    </TABLE>
+				<!-- </div> -->
+		</table>
+	</div>
+	</div>
+
+
+</div>
+ 
+
+
+
+{% endblock %}

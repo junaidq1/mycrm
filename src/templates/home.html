@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+
+
+<br> 
+
+{% block content %}
+
+<br>
+<br>
+<br>
+<div class='container'>
+
+	<div class='row'>
+	<!-- <div class='col-sm-4 col-sm-offset-1'> -->
+	<!-- <div class='col-md-4 col-md-offset-1'> -->
+	
+	<div class='col-xs-12 col-md-4'>
+
+		<h3> Quick updates </h3>
+		<hr/>
+
+
+		<a href='{% url "search_master" %}'>
+		<p class='lead text-align-left'><p class='lead text-align-left'>  <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Look up contact</p></a>
+
+		<a href='{% url "add_master" %}'>
+		<p class='lead text-align-left'>Create new master contact</p></a>
+
+		<a href='{% url "admin:master_master_add" %}'>
+		<p class='lead text-align-left'>Add new master from admin</p></a>
+
+		<a href='{% url "admin:p_groups_group_add" %}'>
+		<p class='lead text-align-left'>Add Prim Groups from admin</p></a>
+
+		<a href='{% url "admin:tags_tag_add" %}'>
+		<p class='lead text-align-left'>Add Tags from admin</p></a>
+
+
+
+
+			<br>
+			<br>
+	</div>
+
+	<!-- <div class='col-sm-4'> -->
+	<div class='col-xs-12 col-xs-offset-1 col-md-4 col-md-offset-1'>
+	<h3> Views </h3>
+	<hr/>
+
+
+<!-- <a href=''>
+<p class='lead text-align-left'>Executive summary</p></a> -->
+
+	<a href='{% url "cal_view_today" %}'>
+	<p class='lead text-align-left'><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>       Calendar Forecast</p></a>
+
+	<a href='{% url "list_starred" %}'>
+	<p class='lead text-align-left'> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   Starred individuals</p></a>
+
+	<a href='{% url "list_prospects" %}'><p class='lead text-align-left'>  <span class="glyphicon glyphicon-grain" aria-hidden="true"></span> All prospects</p></a>
+
+	<br>
+	<a href='{% url "prim_groups" %}'>
+	<p class='lead text-align-left'><span class="glyphicon glyphicon-user" aria-hidden="true"></span> List of primary groups</p></a>
+
+	<a href='{% url "tag_list" %}'>
+	<p class='lead text-align-left'><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> List of tags</p></a>
+
+	<a href='{% url "city_list" %}'>
+	<p class='lead text-align-left'><span class="glyphicon glyphicon-home" aria-hidden="true"></span> List of cities</p></a>
+
+
+
+<br>
+<br>
+<br>
+ 
+
+	</div>
+	</div>
+	</div>
+
+{% endblock %}

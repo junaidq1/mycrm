@@ -1,0 +1,30 @@
+<div class='container'>
+
+	<div class='row'>
+			<br>
+			<h3 style="color:#85BC22"> Calendar Forecast </h3>
+			<hr/>					
+	</div>	
+	<div class='row'>	
+		<div class='col-sm-4'>
+			<h4>Date today:<z style="color:#85BC22">  &nbsp {{date_today|date:"D M d, 'y"}} </z></h4>
+			<br>
+			<h4>Past Due:<z style="color:#85BC22">  &nbsp {{past_due_total}} </z></h4>
+			<h4>Due Today | {{date_today|date:"D M d"}}:<z style="color:#85BC22"> &nbsp {{list_today_total}} </z></h4>
+			<h4>Due Tomorrow | {{date_today_plus1|date:"D M d"}}:<z style="color:#85BC22"> &nbsp {{list_today_plus1_total}} </z></h4>
+			<h4>Due Day After | {{date_today_plus2|date:"D M d"}}:<z style="color:#85BC22"> &nbsp {{list_today_plus2_total}}</z></h4>
+			<hr>
+			<h4><a href='{% url "cal_all" %}'>Show all (order by date):</a> <z style="color:#85BC22"> &nbsp {{total_with_date}}</z></h4>
+			<h4><a href='{% url "cal_all_by_imp" %}'>Show all (order by importance):</a> <z style="color:#85BC22"> &nbsp {{total_with_date_imp}}</z></h4>
+			
+			
+		<br> 
+		
+		
+		<a href='{% url "user_homepage" %}' class="btn btn-default btn-md" role="button">Go back home</a>
+		<a href='{% url "cal_view_today" %}' class="btn btn-primary btn-md" role="button">Reset</a> 
+		<br>
+		<br>
+		 </div>
+		 <div class='col-sm-7 col col-offset-1'>
+		 
